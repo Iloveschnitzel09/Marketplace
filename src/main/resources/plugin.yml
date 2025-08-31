@@ -1,0 +1,4 @@
+name: Marketplace
+version: '1.0'
+main: de.schnitzel.marketplace.Marketplace
+api-version: '1.21'
