@@ -1,38 +1,30 @@
 package de.schnitzel.marketplace
 
+import com.github.shynixn.mccoroutine.folia.SuspendingJavaPlugin
 import de.schnitzel.marketplace.commands.AddTestCommand
 import de.schnitzel.marketplace.commands.OpenComparisonCommand
-import de.schnitzel.marketplace.database.Database
+import de.schnitzel.marketplace.database.databaseService
 import org.bukkit.plugin.java.JavaPlugin
 
-class Marketplace : JavaPlugin() {
-
-    private lateinit var database: Database
+class Marketplace : SuspendingJavaPlugin() {
 
     override fun onEnable() {
-        initializeDatabase()
         registerCommands()
+        databaseService.connect()
+
         logger.info("Marketplace Plugin erfolgreich aktiviert")
     }
 
     override fun onDisable() {
-        shutdownDatabase()
-        logger.info("Marketplace Plugin deaktiviert")
-    }
+        databaseService.disconnect()
 
-    private fun initializeDatabase() {
-        database = Database(this)
-        database.connect()
+        logger.info("Marketplace Plugin deaktiviert")
     }
 
     private fun registerCommands() {
         OpenComparisonCommand()
         AddTestCommand(plugin = this)
     }
-
-    private fun shutdownDatabase() {
-        if (::database.isInitialized) {
-            database.disconnect()
-        }
-    }
 }
+
+val plugin get() = JavaPlugin.getPlugin(Marketplace::class.java)
