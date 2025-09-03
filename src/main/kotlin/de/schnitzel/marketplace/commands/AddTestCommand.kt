@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.sql.DriverManager
 import java.sql.SQLException
-import java.util.Base64
+import java.util.*
 
 fun AddTestCommand(plugin: JavaPlugin) = commandAPICommand("test") {
     withPermission("schnitzel.marketplace.command.test")
@@ -29,10 +29,11 @@ private fun insertTestItem(plugin: JavaPlugin, playerUUID: String) {
                 "INSERT INTO shop_items (owner_uuid, itemstack, price, amount) VALUES (?, ?, ?, ?);"
             ).use { ps ->
                 ps.setString(1, playerUUID)
-                ps.setString(2, itemStackToString(ItemStack(Material.OAK_TRAPDOOR)))
+                //sps.setString(2, itemStackToString(ItemStack(Material.OAK_WOOD)))
                 ps.setDouble(3, 1000.0)
                 ps.setInt(4, 10)
                 ps.executeUpdate()
+
             }
         }
     } catch (e: SQLException) {
@@ -46,12 +47,4 @@ private fun getDatabaseFile(plugin: JavaPlugin): File {
         folder.mkdirs()
     }
     return File(folder, "database.db")
-}
-
-private fun itemStackToString(item: ItemStack): String {
-    val baos = ByteArrayOutputStream()
-    BukkitObjectOutputStream(baos).use { oos ->
-        oos.writeObject(item)
-    }
-    return Base64.getEncoder().encodeToString(baos.toByteArray())
 }

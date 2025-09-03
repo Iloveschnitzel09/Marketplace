@@ -37,17 +37,17 @@ class ComparisonGui() : ChestGui(6, "Preisvergleich") {
             var x = 0
             var y = 0
 
-            val marketItem = DatabaseService().loadMarketItems() // hier kannst du owner übergeben, falls nötig
-
-            for ((index, marketItem) in marketItem.withIndex()) {
-                pane.addItem(GuiItem(createItemStack(marketItem)), x, y)
-
-                x++
-                if (x >= 9) {
-                    x = 0
-                    y++
-                }
-            }
+//            val marketItem = DatabaseService().loadMarketItems() // hier kannst du owner übergeben, falls nötig
+//
+//            for ((index, marketItem) in marketItem.withIndex()) {
+//                pane.addItem(GuiItem(createItemStack(marketItem)), x, y)
+//
+//                x++
+//                if (x >= 9) {
+//                    x = 0
+//                    y++
+//                }
+//            }
 
             outlinePane.setRepeat(true)
 

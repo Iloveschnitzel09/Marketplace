@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation("dev.slne.surf:surf-database:2.2.0-SNAPSHOT")
+    api("dev.slne.surf:surf-database:2.2.1-SNAPSHOT")
 }
 
 group = "de.schnitzel"

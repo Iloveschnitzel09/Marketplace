@@ -16,17 +16,15 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 
-class DatabaseService {
-    private lateinit var databaseProvider: DatabaseProvider
+object DatabaseService {
+    lateinit var databaseProvider: DatabaseProvider
 
-    fun connect() {
-        databaseProvider = DatabaseManager(plugin.dataPath, plugin.dataPath).databaseProvider
+    fun establishConnection(path: java.nio.file.Path) {
+        databaseProvider = DatabaseManager(path, path).databaseProvider
         databaseProvider.connect()
-
-        createTables()
     }
 
-    fun disconnect() {
+    fun closeConnection() {
         databaseProvider.disconnect()
     }
 
@@ -69,9 +67,5 @@ class DatabaseService {
 
     suspend fun saveMarketItems(items: ObjectSet<MarketItem>) = items.forEach { saveMarketItem(it) }
 
-    companion object {
-        val INSTANCE = DatabaseService()
-    }
-}
 
-val databaseService get() = DatabaseService.INSTANCE
+}
