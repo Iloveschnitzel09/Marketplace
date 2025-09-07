@@ -1,15 +1,15 @@
 import dev.slne.surf.surfapi.gradle.util.withSurfApiBukkit
 
-    plugins {
-        id("dev.slne.surf.surfapi.gradle.paper-plugin")
-    }
+plugins {
+    id("dev.slne.surf.surfapi.gradle.paper-plugin")
+}
 
-    dependencies {
-        implementation("com.github.stefvanschie.inventoryframework:IF:0.11.3")
-        implementation("org.xerial:sqlite-jdbc:3.45.2.0")
-    }
+dependencies {
+    api("dev.slne.surf:surf-database:2.2.1-SNAPSHOT")
+}
 
 group = "de.schnitzel"
+version = "1.21.7-1.0.0-SNAPSHOT"
 
 surfPaperPluginApi {
     mainClass("de.schnitzel.marketplace.Marketplace")
@@ -19,4 +19,8 @@ surfPaperPluginApi {
     runServer {
         withSurfApiBukkit()
     }
+}
+
+kotlin {
+    jvmToolchain(24)
 }
